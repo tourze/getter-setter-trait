@@ -2,8 +2,8 @@
 
 namespace Tourze\GetterSetterTrait;
 
-use yii\base\InvalidCallException;
-use yii\base\UnknownPropertyException;
+use Tourze\GetterSetterTrait\Exception\InvalidCallException;
+use Tourze\GetterSetterTrait\Exception\UnknownPropertyException;
 
 trait SetterTrait
 {

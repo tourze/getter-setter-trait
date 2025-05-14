@@ -4,8 +4,7 @@
   "type": "library",
   "license": "MIT",
   "require": {
-    "php": "^8.1",
-    "tourze/yii2-base": "0.0.*"
+    "php": "^8.1"
   },
   "require-dev": {
     "phpstan/phpstan": "^2.1",

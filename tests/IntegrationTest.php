@@ -3,11 +3,11 @@
 namespace Tourze\GetterSetterTrait\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Tourze\GetterSetterTrait\Exception\InvalidCallException;
+use Tourze\GetterSetterTrait\Exception\UnknownPropertyException;
 use Tourze\GetterSetterTrait\GetterTrait;
 use Tourze\GetterSetterTrait\PropertyTrait;
 use Tourze\GetterSetterTrait\SetterTrait;
-use yii\base\InvalidCallException;
-use yii\base\UnknownPropertyException;
 
 class IntegrationTest extends TestCase
 {
