@@ -4,6 +4,7 @@ namespace Tourze\GetterSetterTrait\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Tourze\GetterSetterTrait\Exception\InvalidCallException;
+use Tourze\GetterSetterTrait\Exception\InvalidPropertyValueException;
 use Tourze\GetterSetterTrait\Exception\UnknownPropertyException;
 use Tourze\GetterSetterTrait\SetterTrait;
 
@@ -36,7 +37,7 @@ class SetterTraitTest extends TestCase
             public function setAge(int $value): void
             {
                 if ($value < 0) {
-                    throw new \InvalidArgumentException('Age cannot be negative');
+                    throw new InvalidPropertyValueException('Age cannot be negative');
                 }
                 $this->age = $value;
             }
@@ -57,6 +58,11 @@ class SetterTraitTest extends TestCase
             {
                 $this->data = $value;
             }
+            
+            public function getData(): array
+            {
+                return $this->data;
+            }
         };
     }
 
@@ -75,7 +81,7 @@ class SetterTraitTest extends TestCase
 
         $testData = ['foo' => 'bar'];
         $object->data = $testData;
-        // 无法直接访问私有属性，这里我们没有办法验证，除非增加 getter
+        $this->assertEquals($testData, $object->getData());
     }
 
     /**
@@ -85,7 +91,7 @@ class SetterTraitTest extends TestCase
     {
         $object = $this->createTestClass();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidPropertyValueException::class);
         $object->age = -1;
     }
 

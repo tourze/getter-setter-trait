@@ -1,0 +1,11 @@
+includes:
+    - ../../phpstan.neon
+
+parameters:
+    ignoreErrors:
+        # 忽略魔术方法中的动态方法调用
+        - 
+            message: '#Variable method call on#'
+            paths:
+                - src/GetterTrait.php
+                - src/SetterTrait.php

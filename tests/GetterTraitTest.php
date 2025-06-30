@@ -19,7 +19,6 @@ class GetterTraitTest extends TestCase
 
             private string $name = 'test';
             private int $age = 25;
-            private array $data = ['key' => 'value'];
 
             // 只读属性
             public function getName(): string
@@ -67,7 +66,7 @@ class GetterTraitTest extends TestCase
         $object = $this->createTestClass();
 
         $this->expectException(UnknownPropertyException::class);
-        $object->unknownProperty;
+        $value = $object->unknownProperty;
     }
 
     /**
@@ -78,6 +77,6 @@ class GetterTraitTest extends TestCase
         $object = $this->createTestClass();
 
         $this->expectException(InvalidCallException::class);
-        $object->secretKey;
+        $value = $object->secretKey;
     }
 }

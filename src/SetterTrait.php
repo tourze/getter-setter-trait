@@ -25,6 +25,7 @@ trait SetterTrait
     {
         $setter = 'set' . $name;
         if (method_exists($this, $setter)) {
+            /** @phpstan-ignore-next-line */
             $this->$setter($value);
         } elseif (method_exists($this, 'get' . $name)) {
             throw new InvalidCallException('Setting read-only property: ' . get_class($this) . '::' . $name);

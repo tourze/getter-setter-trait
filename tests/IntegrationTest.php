@@ -4,6 +4,7 @@ namespace Tourze\GetterSetterTrait\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Tourze\GetterSetterTrait\Exception\InvalidCallException;
+use Tourze\GetterSetterTrait\Exception\InvalidPropertyValueException;
 use Tourze\GetterSetterTrait\Exception\UnknownPropertyException;
 use Tourze\GetterSetterTrait\GetterTrait;
 use Tourze\GetterSetterTrait\PropertyTrait;
@@ -42,7 +43,7 @@ class IntegrationTest extends TestCase
             public function setAge(int $value): void
             {
                 if ($value < 0) {
-                    throw new \InvalidArgumentException('Age cannot be negative');
+                    throw new InvalidPropertyValueException('Age cannot be negative');
                 }
                 $this->age = $value;
             }
@@ -121,7 +122,7 @@ class IntegrationTest extends TestCase
 
         // 测试未知属性
         $this->expectException(UnknownPropertyException::class);
-        $object->unknownProperty;
+        $value = $object->unknownProperty;
     }
 
     /**
@@ -132,7 +133,7 @@ class IntegrationTest extends TestCase
         $object = $this->createTestClass();
 
         $this->expectException(InvalidCallException::class);
-        $object->writeOnly;
+        $value = $object->writeOnly;
     }
 
     /**
@@ -153,7 +154,7 @@ class IntegrationTest extends TestCase
     {
         $object = $this->createTestClass();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidPropertyValueException::class);
         $object->age = -1;
     }
 }
