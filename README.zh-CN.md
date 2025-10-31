@@ -1,8 +1,12 @@
 # getter-setter-trait
 
+[English](README.md) | [中文](README.zh-CN.md)
+
 [![最新稳定版本](https://poser.pugx.org/tourze/getter-setter-trait/v/stable)](https://packagist.org/packages/tourze/getter-setter-trait)
+[![构建状态](https://github.com/tourze/getter-setter-trait/workflows/CI/badge.svg)](https://github.com/tourze/getter-setter-trait/actions)
 [![许可证](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![PHP 版本](https://img.shields.io/badge/php-%5E8.1-blue)](https://www.php.net/)
+[![覆盖率状态](https://coveralls.io/repos/github/tourze/getter-setter-trait/badge.svg)](https://coveralls.io/github/tourze/getter-setter-trait)
 
 一个轻量级的 PHP Trait 库，提供可复用的 Getter 和 Setter 魔术方法，兼容 Yii2 风格异常处理，让对象属性的访问更加安全、简洁和自动化。
 

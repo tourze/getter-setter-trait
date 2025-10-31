@@ -1,69 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\GetterSetterTrait\Tests;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Tourze\GetterSetterTrait\Exception\InvalidCallException;
 use Tourze\GetterSetterTrait\Exception\InvalidPropertyValueException;
 use Tourze\GetterSetterTrait\Exception\UnknownPropertyException;
 use Tourze\GetterSetterTrait\SetterTrait;
+use Tourze\GetterSetterTrait\Tests\Fixtures\SetterTraitTestSubject;
+use Tourze\PHPUnitSymfonyKernelTest\AbstractIntegrationTestCase;
 
-class SetterTraitTest extends TestCase
+/**
+ * @internal
+ */
+#[CoversClass(SetterTrait::class)]
+#[RunTestsInSeparateProcesses]
+final class SetterTraitTest extends AbstractIntegrationTestCase
 {
+    protected function onSetUp(): void
+    {
+        // 此测试类不需要特殊的设置逻辑
+    }
+
     /**
      * 用于测试的类，实现了SetterTrait
      */
-    private function createTestClass()
+    private function createTestClass(): SetterTraitTestSubject
     {
-        return new class {
-            use SetterTrait;
-
-            private string $name = '';
-            private int $age = 0;
-            private array $data = [];
-
-            // 标准setter
-            public function setName(string $value): void
-            {
-                $this->name = $value;
-            }
-
-            public function getName(): string
-            {
-                return $this->name;
-            }
-
-            // 带验证的setter
-            public function setAge(int $value): void
-            {
-                if ($value < 0) {
-                    throw new InvalidPropertyValueException('Age cannot be negative');
-                }
-                $this->age = $value;
-            }
-
-            public function getAge(): int
-            {
-                return $this->age;
-            }
-
-            // 只读属性
-            public function getReadOnly(): string
-            {
-                return 'read-only';
-            }
-
-            // 只写属性
-            public function setData(array $value): void
-            {
-                $this->data = $value;
-            }
-            
-            public function getData(): array
-            {
-                return $this->data;
-            }
-        };
+        return new SetterTraitTestSubject();
     }
 
     /**
@@ -73,14 +40,14 @@ class SetterTraitTest extends TestCase
     {
         $object = $this->createTestClass();
 
-        $object->name = 'John';
+        $object->name = 'John'; // @phpstan-ignore-line
         $this->assertEquals('John', $object->getName());
 
-        $object->age = 30;
+        $object->age = 30; // @phpstan-ignore-line
         $this->assertEquals(30, $object->getAge());
 
         $testData = ['foo' => 'bar'];
-        $object->data = $testData;
+        $object->data = $testData; // @phpstan-ignore-line
         $this->assertEquals($testData, $object->getData());
     }
 
@@ -92,7 +59,7 @@ class SetterTraitTest extends TestCase
         $object = $this->createTestClass();
 
         $this->expectException(InvalidPropertyValueException::class);
-        $object->age = -1;
+        $object->age = -1; // @phpstan-ignore-line
     }
 
     /**
@@ -103,7 +70,7 @@ class SetterTraitTest extends TestCase
         $object = $this->createTestClass();
 
         $this->expectException(UnknownPropertyException::class);
-        $object->unknownProperty = 'test';
+        $object->unknownProperty = 'test'; // @phpstan-ignore-line
     }
 
     /**
@@ -114,6 +81,6 @@ class SetterTraitTest extends TestCase
         $object = $this->createTestClass();
 
         $this->expectException(InvalidCallException::class);
-        $object->readOnly = 'new value';
+        $object->readOnly = 'new value'; // @phpstan-ignore-line
     }
 }

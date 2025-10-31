@@ -1,53 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\GetterSetterTrait\Tests;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Tourze\GetterSetterTrait\PropertyTrait;
+use Tourze\GetterSetterTrait\Tests\Fixtures\PropertyTraitTestSubject;
+use Tourze\PHPUnitSymfonyKernelTest\AbstractIntegrationTestCase;
 
-class PropertyTraitTest extends TestCase
+/**
+ * @internal
+ */
+#[CoversClass(PropertyTrait::class)]
+#[RunTestsInSeparateProcesses]
+final class PropertyTraitTest extends AbstractIntegrationTestCase
 {
+    protected function onSetUp(): void
+    {
+        // 此测试类不需要特殊的设置逻辑
+    }
+
     /**
      * 用于测试的类，实现了PropertyTrait
      */
-    private function createTestClass()
+    private function createTestClass(): PropertyTraitTestSubject
     {
-        return new class {
-            use PropertyTrait;
-
-            private string $name = 'test';
-            private int $age = 25;
-            protected array $data = ['key' => 'value'];
-
-            // 只读属性
-            public function getName(): string
-            {
-                return $this->name;
-            }
-
-            // 标准getter和setter
-            public function getAge(): int
-            {
-                return $this->age;
-            }
-
-            public function setAge(int $age): void
-            {
-                $this->age = $age;
-            }
-
-            // 没有对应属性的getter
-            public function getCalculatedValue(): int
-            {
-                return 100;
-            }
-
-            // 只写属性
-            public function setSecretKey(string $value): void
-            {
-                // 这是一个只写属性
-            }
-        };
+        return new PropertyTraitTestSubject();
     }
 
     /**

@@ -1,37 +1,44 @@
 <?php
 
-namespace Tourze\GetterSetterTrait\Tests\Unit\Exception;
+declare(strict_types=1);
 
-use PHPUnit\Framework\TestCase;
+namespace Tourze\GetterSetterTrait\Tests\Exception;
+
+use PHPUnit\Framework\Attributes\CoversClass;
 use Tourze\GetterSetterTrait\Exception\InvalidPropertyValueException;
+use Tourze\PHPUnitBase\AbstractExceptionTestCase;
 
-class InvalidPropertyValueExceptionTest extends TestCase
+/**
+ * @internal
+ */
+#[CoversClass(InvalidPropertyValueException::class)]
+final class InvalidPropertyValueExceptionTest extends AbstractExceptionTestCase
 {
     public function testCanBeCreated(): void
     {
         $message = 'Invalid property value';
         $exception = new InvalidPropertyValueException($message);
-        
+
         $this->assertInstanceOf(InvalidPropertyValueException::class, $exception);
         $this->assertInstanceOf(\RuntimeException::class, $exception);
         $this->assertEquals($message, $exception->getMessage());
     }
-    
+
     public function testCanBeCreatedWithCode(): void
     {
         $message = 'Invalid property value';
         $code = 456;
         $exception = new InvalidPropertyValueException($message, $code);
-        
+
         $this->assertEquals($message, $exception->getMessage());
         $this->assertEquals($code, $exception->getCode());
     }
-    
+
     public function testCanBeCreatedWithPrevious(): void
     {
         $previous = new \Exception('Previous exception');
         $exception = new InvalidPropertyValueException('Invalid value', 0, $previous);
-        
+
         $this->assertSame($previous, $exception->getPrevious());
     }
 }

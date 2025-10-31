@@ -1,32 +1,37 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\GetterSetterTrait;
 
 use Tourze\GetterSetterTrait\Exception\InvalidCallException;
 use Tourze\GetterSetterTrait\Exception\UnknownPropertyException;
 
+/**
+ * @phpstan-ignore-next-line trait.unused
+ */
 trait SetterTrait
 {
     /**
-     * Sets value of an object property.
+     * 设置对象属性的值。
      *
-     * Do not call this method directly as it is a PHP magic method that
-     * will be implicitly called when executing `$object->property = $value;`.
+     * 不要直接调用此方法，因为它是 PHP 魔术方法，
+     * 在执行 `$object->property = $value;` 时会被隐式调用。
      *
-     * @param string $name  the property name or the event name
-     * @param mixed  $value the property value
+     * @param string $name  属性名称或事件名称
+     * @param mixed  $value 属性值
      *
-     * @throws UnknownPropertyException if the property is not defined
-     * @throws InvalidCallException     if the property is read-only
+     * @throws UnknownPropertyException 如果属性未定义
+     * @throws InvalidCallException     如果属性是只读的
      *
      * @see __get()
      */
-    public function __set(string $name, $value): void
+    public function __set(string $name, mixed $value): void
     {
         $setter = 'set' . $name;
         if (method_exists($this, $setter)) {
-            /** @phpstan-ignore-next-line */
-            $this->$setter($value);
+            /* @phpstan-ignore-next-line */
+            $this->{$setter}($value);
         } elseif (method_exists($this, 'get' . $name)) {
             throw new InvalidCallException('Setting read-only property: ' . get_class($this) . '::' . $name);
         } else {

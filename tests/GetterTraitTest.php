@@ -1,49 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\GetterSetterTrait\Tests;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Tourze\GetterSetterTrait\Exception\InvalidCallException;
 use Tourze\GetterSetterTrait\Exception\UnknownPropertyException;
 use Tourze\GetterSetterTrait\GetterTrait;
+use Tourze\GetterSetterTrait\Tests\Fixtures\GetterTraitTestSubject;
+use Tourze\PHPUnitSymfonyKernelTest\AbstractIntegrationTestCase;
 
-class GetterTraitTest extends TestCase
+/**
+ * @internal
+ */
+#[CoversClass(GetterTrait::class)]
+#[RunTestsInSeparateProcesses]
+final class GetterTraitTest extends AbstractIntegrationTestCase
 {
+    protected function onSetUp(): void
+    {
+        // 此测试类不需要特殊的设置逻辑
+    }
+
     /**
      * 用于测试的类，实现了GetterTrait
      */
-    private function createTestClass()
+    private function createTestClass(): GetterTraitTestSubject
     {
-        return new class {
-            use GetterTrait;
-
-            private string $name = 'test';
-            private int $age = 25;
-
-            // 只读属性
-            public function getName(): string
-            {
-                return $this->name;
-            }
-
-            // 标准getter
-            public function getAge(): int
-            {
-                return $this->age;
-            }
-
-            // 没有对应属性的getter
-            public function getCalculatedValue(): int
-            {
-                return 100;
-            }
-
-            // 只写属性
-            public function setSecretKey(string $value): void
-            {
-                // 这是一个只写属性
-            }
-        };
+        return new GetterTraitTestSubject();
     }
 
     /**
@@ -53,9 +39,9 @@ class GetterTraitTest extends TestCase
     {
         $object = $this->createTestClass();
 
-        $this->assertEquals('test', $object->name);
-        $this->assertEquals(25, $object->age);
-        $this->assertEquals(100, $object->calculatedValue);
+        $this->assertEquals('test', $object->name); // @phpstan-ignore-line
+        $this->assertEquals(25, $object->age); // @phpstan-ignore-line
+        $this->assertEquals(100, $object->calculatedValue); // @phpstan-ignore-line
     }
 
     /**
@@ -66,7 +52,7 @@ class GetterTraitTest extends TestCase
         $object = $this->createTestClass();
 
         $this->expectException(UnknownPropertyException::class);
-        $value = $object->unknownProperty;
+        $value = $object->unknownProperty; // @phpstan-ignore-line
     }
 
     /**
@@ -77,6 +63,6 @@ class GetterTraitTest extends TestCase
         $object = $this->createTestClass();
 
         $this->expectException(InvalidCallException::class);
-        $value = $object->secretKey;
+        $value = $object->secretKey; // @phpstan-ignore-line
     }
 }

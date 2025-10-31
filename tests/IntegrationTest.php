@@ -1,81 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\GetterSetterTrait\Tests;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Tourze\GetterSetterTrait\Exception\InvalidCallException;
 use Tourze\GetterSetterTrait\Exception\InvalidPropertyValueException;
 use Tourze\GetterSetterTrait\Exception\UnknownPropertyException;
-use Tourze\GetterSetterTrait\GetterTrait;
 use Tourze\GetterSetterTrait\PropertyTrait;
-use Tourze\GetterSetterTrait\SetterTrait;
+use Tourze\GetterSetterTrait\Tests\Fixtures\IntegrationTestSubject;
+use Tourze\PHPUnitSymfonyKernelTest\AbstractIntegrationTestCase;
 
-class IntegrationTest extends TestCase
+/**
+ * Integration test for getter-setter traits working together
+ *
+ * @internal
+ */
+#[CoversClass(PropertyTrait::class)]
+#[RunTestsInSeparateProcesses]
+final class IntegrationTest extends AbstractIntegrationTestCase
 {
+    protected function onSetUp(): void
+    {
+        // 此测试类不需要特殊的设置逻辑
+    }
+
     /**
      * 创建用于测试的类，同时实现了所有trait
      */
-    private function createTestClass()
+    private function createTestClass(): IntegrationTestSubject
     {
-        return new class {
-            use GetterTrait, SetterTrait, PropertyTrait;
-
-            private string $name = '';
-            private int $age = 0;
-            protected array $data = [];
-            private bool $active = false;
-
-            public function getName(): string
-            {
-                return $this->name;
-            }
-
-            public function setName(string $value): void
-            {
-                $this->name = trim($value);
-            }
-
-            public function getAge(): int
-            {
-                return $this->age;
-            }
-
-            public function setAge(int $value): void
-            {
-                if ($value < 0) {
-                    throw new InvalidPropertyValueException('Age cannot be negative');
-                }
-                $this->age = $value;
-            }
-
-            public function isActive(): bool
-            {
-                return $this->active;
-            }
-
-            public function setActive(bool $value): void
-            {
-                $this->active = $value;
-            }
-
-            // 只读属性
-            public function getReadOnly(): string
-            {
-                return 'read-only';
-            }
-
-            // 只写属性
-            public function setWriteOnly(string $value): void
-            {
-                // 这是一个只写属性
-            }
-
-            // 计算属性
-            public function getFullName(): string
-            {
-                return $this->name . ' (Age: ' . $this->age . ')';
-            }
-        };
+        return new IntegrationTestSubject();
     }
 
     /**
@@ -99,17 +56,17 @@ class IntegrationTest extends TestCase
         $this->assertTrue($object->canSetProperty('writeOnly'));
 
         // 设置和获取属性值
-        $object->name = ' John Doe ';  // 使用setter会进行trim处理
-        $this->assertEquals('John Doe', $object->name);
+        $object->name = ' John Doe ';  // 使用setter会进行trim处理 // @phpstan-ignore-line
+        $this->assertEquals('John Doe', $object->name); // @phpstan-ignore-line
 
-        $object->age = 30;
-        $this->assertEquals(30, $object->age);
+        $object->age = 30; // @phpstan-ignore-line
+        $this->assertEquals(30, $object->age); // @phpstan-ignore-line
 
         // 测试计算属性
-        $this->assertEquals('John Doe (Age: 30)', $object->fullName);
+        $this->assertEquals('John Doe (Age: 30)', $object->fullName); // @phpstan-ignore-line
 
         // 测试不标准的属性访问（isActive而不是getActive）
-        $object->active = true;
+        $object->active = true; // @phpstan-ignore-line
         $this->assertTrue($object->isActive());
     }
 
@@ -122,7 +79,7 @@ class IntegrationTest extends TestCase
 
         // 测试未知属性
         $this->expectException(UnknownPropertyException::class);
-        $value = $object->unknownProperty;
+        $value = $object->unknownProperty; // @phpstan-ignore-line
     }
 
     /**
@@ -133,7 +90,7 @@ class IntegrationTest extends TestCase
         $object = $this->createTestClass();
 
         $this->expectException(InvalidCallException::class);
-        $value = $object->writeOnly;
+        $value = $object->writeOnly; // @phpstan-ignore-line
     }
 
     /**
@@ -144,7 +101,7 @@ class IntegrationTest extends TestCase
         $object = $this->createTestClass();
 
         $this->expectException(InvalidCallException::class);
-        $object->readOnly = 'new value';
+        $object->readOnly = 'new value'; // @phpstan-ignore-line
     }
 
     /**
@@ -155,6 +112,6 @@ class IntegrationTest extends TestCase
         $object = $this->createTestClass();
 
         $this->expectException(InvalidPropertyValueException::class);
-        $object->age = -1;
+        $object->age = -1; // @phpstan-ignore-line
     }
 }

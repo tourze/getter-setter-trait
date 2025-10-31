@@ -1,22 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\GetterSetterTrait;
 
+/**
+ * @phpstan-ignore-next-line trait.unused
+ */
 trait PropertyTrait
 {
     /**
-     * Returns a value indicating whether a property is defined.
+     * 返回一个值，指示是否定义了属性。
      *
-     * A property is defined if:
+     * 属性被认为已定义，如果：
      *
-     * - the class has a getter or setter method associated with the specified name
-     *   (in this case, property name is case-insensitive);
-     * - the class has a member variable with the specified name (when `$checkVars` is true);
+     * - 类具有与指定名称关联的 getter 或 setter 方法（此时属性名不区分大小写）；
+     * - 类具有指定名称的成员变量（当 `$checkVars` 为 true 时）；
      *
-     * @param string $name      the property name
-     * @param bool   $checkVars whether to treat member variables as properties
+     * @param string $name      属性名称
+     * @param bool   $checkVars 是否将成员变量视为属性
      *
-     * @return bool whether the property is defined
+     * @return bool 属性是否已定义
      *
      * @see canGetProperty()
      * @see canSetProperty()
@@ -27,18 +31,17 @@ trait PropertyTrait
     }
 
     /**
-     * Returns a value indicating whether a property can be read.
+     * 返回一个值，指示属性是否可读取。
      *
-     * A property is readable if:
+     * 属性被认为可读，如果：
      *
-     * - the class has a getter method associated with the specified name
-     *   (in this case, property name is case-insensitive);
-     * - the class has a member variable with the specified name (when `$checkVars` is true);
+     * - 类具有与指定名称关联的 getter 方法（此时属性名不区分大小写）；
+     * - 类具有指定名称的成员变量（当 `$checkVars` 为 true 时）；
      *
-     * @param string $name      the property name
-     * @param bool   $checkVars whether to treat member variables as properties
+     * @param string $name      属性名称
+     * @param bool   $checkVars 是否将成员变量视为属性
      *
-     * @return bool whether the property can be read
+     * @return bool 属性是否可读
      *
      * @see canSetProperty()
      */
@@ -48,18 +51,17 @@ trait PropertyTrait
     }
 
     /**
-     * Returns a value indicating whether a property can be set.
+     * 返回一个值，指示属性是否可设置。
      *
-     * A property is writable if:
+     * 属性被认为可写，如果：
      *
-     * - the class has a setter method associated with the specified name
-     *   (in this case, property name is case-insensitive);
-     * - the class has a member variable with the specified name (when `$checkVars` is true);
+     * - 类具有与指定名称关联的 setter 方法（此时属性名不区分大小写）；
+     * - 类具有指定名称的成员变量（当 `$checkVars` 为 true 时）；
      *
-     * @param string $name      the property name
-     * @param bool   $checkVars whether to treat member variables as properties
+     * @param string $name      属性名称
+     * @param bool   $checkVars 是否将成员变量视为属性
      *
-     * @return bool whether the property can be written
+     * @return bool 属性是否可写
      *
      * @see canGetProperty()
      */

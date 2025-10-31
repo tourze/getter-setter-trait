@@ -1,10 +1,14 @@
 # getter-setter-trait
 
+[English](README.md) | [中文](README.zh-CN.md)
+
 [![Latest Stable Version](https://poser.pugx.org/tourze/getter-setter-trait/v/stable)](https://packagist.org/packages/tourze/getter-setter-trait)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![PHP Version](https://img.shields.io/badge/php-%5E8.1-blue)](https://www.php.net/)
+[![Coverage Status](https://coveralls.io/repos/github/tourze/getter-setter-trait/badge.svg)](https://coveralls.io/github/tourze/getter-setter-trait)
 
-A lightweight PHP library providing reusable Getter and Setter traits for object property access, inspired by Yii2 conventions. It enables magic property access (`__get`, `__set`) with robust exception handling for unknown or write/read-only properties.
+A lightweight PHP library providing reusable Getter and Setter traits for object property access, inspired by Yii2 conventions. 
+It enables magic property access (`__get`, `__set`) with robust exception handling for unknown or write/read-only properties.
 
 ## Features
 
