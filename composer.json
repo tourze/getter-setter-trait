@@ -21,6 +21,5 @@
     "psr-4": {
       "Tourze\\GetterSetterTrait\\Tests\\": "tests/"
     }
-  },
-  "version": "1.0.0"
+  }
 }
