@@ -56,17 +56,17 @@ final class IntegrationTest extends AbstractIntegrationTestCase
         $this->assertTrue($object->canSetProperty('writeOnly'));
 
         // 设置和获取属性值
-        $object->name = ' John Doe ';  // 使用setter会进行trim处理 // @phpstan-ignore-line
-        $this->assertEquals('John Doe', $object->name); // @phpstan-ignore-line
+        $object->name = ' John Doe ';  // 使用setter会进行trim处理
+        $this->assertEquals('John Doe', $object->name);
 
-        $object->age = 30; // @phpstan-ignore-line
-        $this->assertEquals(30, $object->age); // @phpstan-ignore-line
+        $object->age = 30;
+        $this->assertEquals(30, $object->age);
 
         // 测试计算属性
-        $this->assertEquals('John Doe (Age: 30)', $object->fullName); // @phpstan-ignore-line
+        $this->assertEquals('John Doe (Age: 30)', $object->fullName);
 
         // 测试不标准的属性访问（isActive而不是getActive）
-        $object->active = true; // @phpstan-ignore-line
+        $object->active = true;
         $this->assertTrue($object->isActive());
     }
 
@@ -79,7 +79,7 @@ final class IntegrationTest extends AbstractIntegrationTestCase
 
         // 测试未知属性
         $this->expectException(UnknownPropertyException::class);
-        $value = $object->unknownProperty; // @phpstan-ignore-line
+        $value = $object->unknownProperty;
     }
 
     /**
@@ -90,7 +90,7 @@ final class IntegrationTest extends AbstractIntegrationTestCase
         $object = $this->createTestClass();
 
         $this->expectException(InvalidCallException::class);
-        $value = $object->writeOnly; // @phpstan-ignore-line
+        $value = $object->writeOnly;
     }
 
     /**
@@ -101,7 +101,7 @@ final class IntegrationTest extends AbstractIntegrationTestCase
         $object = $this->createTestClass();
 
         $this->expectException(InvalidCallException::class);
-        $object->readOnly = 'new value'; // @phpstan-ignore-line
+        $object->readOnly = 'new value';
     }
 
     /**
@@ -112,6 +112,6 @@ final class IntegrationTest extends AbstractIntegrationTestCase
         $object = $this->createTestClass();
 
         $this->expectException(InvalidPropertyValueException::class);
-        $object->age = -1; // @phpstan-ignore-line
+        $object->age = -1;
     }
 }

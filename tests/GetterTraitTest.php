@@ -39,9 +39,9 @@ final class GetterTraitTest extends AbstractIntegrationTestCase
     {
         $object = $this->createTestClass();
 
-        $this->assertEquals('test', $object->name); // @phpstan-ignore-line
-        $this->assertEquals(25, $object->age); // @phpstan-ignore-line
-        $this->assertEquals(100, $object->calculatedValue); // @phpstan-ignore-line
+        $this->assertEquals('test', $object->name);
+        $this->assertEquals(25, $object->age);
+        $this->assertEquals(100, $object->calculatedValue);
     }
 
     /**
@@ -52,7 +52,7 @@ final class GetterTraitTest extends AbstractIntegrationTestCase
         $object = $this->createTestClass();
 
         $this->expectException(UnknownPropertyException::class);
-        $value = $object->unknownProperty; // @phpstan-ignore-line
+        $value = $object->unknownProperty;
     }
 
     /**
@@ -63,6 +63,6 @@ final class GetterTraitTest extends AbstractIntegrationTestCase
         $object = $this->createTestClass();
 
         $this->expectException(InvalidCallException::class);
-        $value = $object->secretKey; // @phpstan-ignore-line
+        $value = $object->secretKey;
     }
 }

@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Tourze\GetterSetterTrait;
 
-/**
- * @phpstan-ignore-next-line trait.unused
- */
+
 trait PropertyTrait
 {
     /**

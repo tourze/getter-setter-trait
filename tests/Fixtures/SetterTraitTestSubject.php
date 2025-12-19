@@ -9,6 +9,12 @@ use Tourze\GetterSetterTrait\SetterTrait;
 
 /**
  * 测试用的Setter类
+ *
+ * @property string $name 名称属性
+ * @property int $age 年龄属性
+ * @property array<string, mixed> $data 数据属性
+ * @property string $unknownProperty 访问未知属性（测试用）
+ * @property string $readOnly 读取只读属性（测试用）
  */
 class SetterTraitTestSubject
 {

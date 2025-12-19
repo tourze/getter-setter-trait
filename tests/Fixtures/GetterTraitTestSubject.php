@@ -8,6 +8,12 @@ use Tourze\GetterSetterTrait\GetterTrait;
 
 /**
  * 测试用的Getter类
+ *
+ * @property string $name 读取名称属性
+ * @property int $age 读取年龄属性
+ * @property int $calculatedValue 读取计算值
+ * @property string $unknownProperty 访问未知属性（测试用）
+ * @property string $secretKey 访问只写属性（测试用）
  */
 class GetterTraitTestSubject
 {

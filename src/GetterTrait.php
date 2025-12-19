@@ -7,9 +7,7 @@ namespace Tourze\GetterSetterTrait;
 use Tourze\GetterSetterTrait\Exception\InvalidCallException;
 use Tourze\GetterSetterTrait\Exception\UnknownPropertyException;
 
-/**
- * @phpstan-ignore-next-line trait.unused
- */
+
 trait GetterTrait
 {
     /**
@@ -31,7 +29,7 @@ trait GetterTrait
     {
         $getter = 'get' . $name;
         if (method_exists($this, $getter)) {
-            /* @phpstan-ignore-next-line */
+            
             return $this->{$getter}();
         }
         if (method_exists($this, 'set' . $name)) {

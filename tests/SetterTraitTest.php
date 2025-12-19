@@ -40,14 +40,14 @@ final class SetterTraitTest extends AbstractIntegrationTestCase
     {
         $object = $this->createTestClass();
 
-        $object->name = 'John'; // @phpstan-ignore-line
+        $object->name = 'John';
         $this->assertEquals('John', $object->getName());
 
-        $object->age = 30; // @phpstan-ignore-line
+        $object->age = 30;
         $this->assertEquals(30, $object->getAge());
 
         $testData = ['foo' => 'bar'];
-        $object->data = $testData; // @phpstan-ignore-line
+        $object->data = $testData;
         $this->assertEquals($testData, $object->getData());
     }
 
@@ -59,7 +59,7 @@ final class SetterTraitTest extends AbstractIntegrationTestCase
         $object = $this->createTestClass();
 
         $this->expectException(InvalidPropertyValueException::class);
-        $object->age = -1; // @phpstan-ignore-line
+        $object->age = -1;
     }
 
     /**
@@ -70,7 +70,7 @@ final class SetterTraitTest extends AbstractIntegrationTestCase
         $object = $this->createTestClass();
 
         $this->expectException(UnknownPropertyException::class);
-        $object->unknownProperty = 'test'; // @phpstan-ignore-line
+        $object->unknownProperty = 'test';
     }
 
     /**
@@ -81,6 +81,6 @@ final class SetterTraitTest extends AbstractIntegrationTestCase
         $object = $this->createTestClass();
 
         $this->expectException(InvalidCallException::class);
-        $object->readOnly = 'new value'; // @phpstan-ignore-line
+        $object->readOnly = 'new value';
     }
 }

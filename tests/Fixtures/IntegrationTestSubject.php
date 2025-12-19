@@ -11,6 +11,15 @@ use Tourze\GetterSetterTrait\SetterTrait;
 
 /**
  * 测试用的具体类，实现了所有trait
+ *
+ * @property string $name 名称属性
+ * @property int $age 年龄属性
+ * @property array<string, mixed> $data 数据属性
+ * @property bool $active 激活状态
+ * @property string $fullName 全名（计算属性）
+ * @property string $readOnly 只读属性
+ * @property string $unknownProperty 访问未知属性（测试用）
+ * @property string $writeOnly 只写属性（测试用）
  */
 class IntegrationTestSubject
 {
